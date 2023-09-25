@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation Example</title>
+</head>
+<body>
+    <h1>Geolocation Example</h1>
+    
+    <p id="location-info">Getting your location...</p>
+    
+    <div id="content" style="display: none;">
+        <h2>Welcome to this location-based content!</h2>
+        <p>This content is specific to your current location.</p>
+    </div>
+
+    <script>
+        // Check if the Geolocation API is available in the user's browser.
+        if ("geolocation" in navigator) {
+            // Get the user's geolocation.
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Get latitude and longitude.
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Update the location info.
+                const locationInfo = document.getElementById("location-info");
+                locationInfo.textContent = `Your location: Latitude ${latitude}, Longitude ${longitude}`;
+
+                // Display the content specific to the location.
+                const content = document.getElementById("content");
+                content.style.display = "block";
+            }, function(error) {
+                // Handle errors (e.g., user denied geolocation access).
+                const locationInfo = document.getElementById("location-info");
+                locationInfo.textContent = "Error getting your location: " + error.message;
+            });
+        } else {
+            // Geolocation API is not available.
+            const locationInfo = document.getElementById("location-info");
+            locationInfo.textContent = "Geolocation is not supported in your browser.";
+        }
+    </script>
+</body>
+</html>
